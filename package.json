@@ -1,0 +1,41 @@
+{
+  "name": "ao-comm-server-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@progress/kendo-data-query": "^1.5.0",
+    "@progress/kendo-react-dateinputs": "^2.6.1",
+    "@progress/kendo-react-dropdowns": "^2.6.1",
+    "@progress/kendo-react-grid": "^2.6.1",
+    "@progress/kendo-react-inputs": "^2.6.1",
+    "@progress/kendo-react-intl": "^2.6.1",
+    "axios": "^0.18.0",
+    "material-table": "^1.14.0",
+    "rc-table": "^6.4.3",
+    "react": "^16.7.0",
+    "react-bootstrap": "^0.32.4",
+    "react-bootstrap-table-next": "^2.1.0",
+    "react-dom": "^16.7.0",
+    "react-redux": "^6.0.0",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.3",
+    "react-table": "^6.7.6",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
