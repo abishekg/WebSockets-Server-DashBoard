@@ -1,21 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { fetchSendFiles, fetchReceiveFiles } from './../actions/index'
-import { DropdownButton, MenuItem } from 'react-bootstrap';
-import { columnsSent, columnsReceived } from './../utils/config';
-// import Table from 'react-table';
-// import MaterialTable from 'material-table';
+import { Glyphicon, Button, DropdownButton, MenuItem } from 'react-bootstrap';
+import { columnsSent, columnsReceived, sendKey, receiveKey, sentDefaultSorted, receiveDefaultSorted } from './../utils/config';
 import BootstrapTable from 'react-bootstrap-table-next';
 
-// import { Grid, GridColumn } from '@progress/kendo-react-grid';
-// import { filterBy } from '@progress/kendo-data-query';
-// import Table from 'rc-table';
 
 export class FileTransfer extends Component {
   state = {
-    displayedList: [], currentState: 'send'
+    displayedList: [], currentState: sendKey
   }
-
 
   componentWillMount() {
     this.props.fetchSendFiles();
@@ -24,38 +18,45 @@ export class FileTransfer extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.state.displayedList !== nextProps.sendFiles || this.state.displayedList !== nextProps.receiveFiles) {
-      if (this.state.currentState === 'send') {
+      if (this.state.currentState === sendKey) {
         this.setState({ displayedList: this.props.sendFiles })
-      } else if (this.state.currentState === 'receive') {
+      } else if (this.state.currentState === receiveKey) {
         this.setState({ displayedList: this.props.receiveFiles })
       }
     }
   }
+
   handleChange(value) {
-    if (value === 'send') {
-      this.setState({ currentState: 'send' });
+    if (value === sendKey) {
+      this.setState({ currentState: sendKey });
       this.props.fetchSendFiles();
-    } else if (value === 'receive') {
-      this.setState({ currentState: 'receive' });
+    } else if (value === receiveKey) {
+      this.setState({ currentState: receiveKey });
       this.props.fetchReceiveFiles();
     }
   }
 
   render() {
     return (<div>
-      <DropdownButton
-        title={this.state.currentState === 'send' ? "Sent Files" : "Received Files"}
-        bsStyle="danger"
-        style={{ width: '130px', height: '40px' }}
-      >
-        <MenuItem onClick={this.handleChange.bind(this, 'send')}>Sent Files</MenuItem>
-        <MenuItem onClick={this.handleChange.bind(this, 'receive')}>Received Files</MenuItem>
-      </DropdownButton>
+      <div>
+        <DropdownButton
+          title={this.state.currentState === sendKey ? "Sent Files" : "Received Files"}
+          bsStyle="danger"
+          style={{ width: '130px', height: '40px' }}
+        >
+          <MenuItem onClick={this.handleChange.bind(this, sendKey)}>Sent Files</MenuItem>
+          <MenuItem onClick={this.handleChange.bind(this, receiveKey)}>Received Files</MenuItem>
+        </DropdownButton>
+        <Button onClick={this.handleChange.bind(this, this.state.currentState)}>
+          <Glyphicon glyph="refresh" />
+        </Button>
+      </div>
       <div style={{ width: '65%' }}>
         <BootstrapTable
           keyField="timeSent"
           data={this.state.displayedList}
-          columns={this.state.currentState === 'send' ? columnsSent : columnsReceived}
+          columns={this.state.currentState === sendKey ? columnsSent : columnsReceived}
+          defaultSorted={this.state.currentState === sendKey ? sentDefaultSorted : receiveDefaultSorted}
           striped
           hover
           condensed
@@ -65,19 +66,6 @@ export class FileTransfer extends Component {
     )
   }
 }
-
-// <MaterialTable
-//   columns={this.state.currentState === 'send' ? columnsSent : columnsReceived}
-//   data={this.state.displayedList}
-//   title={this.state.currentState === 'send' ? "Send Table" : "Received Table"}
-// />
-
-// <Table
-//   data={this.state.displayedList}
-//   columns={this.state.currentState === 'send' ? columnsSent : columnsReceived}
-//   filterable
-//   sortable
-// />
 
 function mapStateToProps({ sendFiles, receiveFiles }) {
   return {
