@@ -8,6 +8,7 @@ import { createStore, applyMiddleware } from 'redux';
 import reducers from './reducers';
 import reduxThunk from 'redux-thunk';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Send_Receive from './components/Send_Receive';
 
 
 const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
@@ -16,7 +17,8 @@ ReactDOM.render(<div>
   <Provider store={store}>
     <BrowserRouter>
       <Switch>
-        <Route path="/" component={App} />
+        <Route path="/send" component={Send_Receive} />
+        <Route path="/dashboard" component={App} />
       </Switch>
     </BrowserRouter>
   </Provider>

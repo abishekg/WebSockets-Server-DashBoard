@@ -26,6 +26,10 @@ export class FileTransfer extends Component {
     }
   }
 
+  componentDidMount() {
+    this.handleChange(this.state.currentState);
+  }
+
   handleChange(value) {
     if (value === sendKey) {
       this.setState({ currentState: sendKey });
